@@ -1,0 +1,77 @@
+[4:35 pm, 20/08/2024] ♻️🌐: #include <DHT.h>
+#include <DHT_U.h>
+
+#define DHTPIN 20         // Corrected the macro name from DHTPI to DHTPIN
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);  // Now using the correct DHTPIN
+
+int RED = 8;
+int GREEN = 10;
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("DHT Sensor Readings");
+  dht.begin();
+  pinMode(RED, OUTPUT);
+  pinMode(GREEN, OUTPUT);
+}
+
+void loop() {
+  float temp = dht.readTemperature();
+  float hum = dht.readHumidity();
+
+  Serial.print("Temperature is: ");
+  Serial.print(temp);
+  Serial.print("°");
+  Serial.print(" Humidity is: ");
+  Serial.print(hum);
+  Serial.println("%");
+  
+  delay(2000);
+  
+  // Check temperature and control LEDs
+  if (temp < 20) {
+    Serial.println("Temperature is fine!");
+    digitalWrite(RED, HIGH);…
+[4:38 pm, 20/08/2024] ♻️🌐: #include <DHT.h>
+#include <DHT_U.h>
+
+#define DHTPIN 20         // Corrected the macro name from DHTPI to DHTPIN
+#define DHTTYPE DHT22
+DHT dht(DHTPIN, DHTTYPE);  // Now using the correct DHTPIN
+
+int RED = 8;
+int GREEN = 10;
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("DHT Sensor Readings");
+  dht.begin();
+  pinMode(RED, OUTPUT);
+  pinMode(GREEN, OUTPUT);
+}
+
+void loop() {
+  float temp = dht.readTemperature();
+  float hum = dht.readHumidity();
+
+  Serial.print("Temperature is: ");
+  Serial.print(temp);
+  Serial.print("°");
+  Serial.print(" Humidity is: ");
+  Serial.print(hum);
+  Serial.println("%");
+  
+  delay(2000);
+  
+  // Check temperature and control LEDs
+  if (temp < 20) {
+    Serial.println("Temperature is fine!");
+    digitalWrite(RED, HIGH);   // Turn on RED LED
+    digitalWrite(GREEN, LOW);  // Turn off GREEN LED
+  } else {
+    Serial.println("Temperature is bad!");
+    digitalWrite(RED, LOW);    // Turn off RED LED
+    digitalWrite(GREEN, HIGH); // Turn on GREEN LED
+  }
+}
